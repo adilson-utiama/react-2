@@ -24,6 +24,11 @@ export default class Header extends Component {
                         {/* Quem deu like nas minhas fotos */}
                         </a>
                     </li>
+                    <li >
+                        <a href="/logout">
+                        Logout
+                        </a>
+                    </li>
                     </ul>
                 </nav>
             </header> 
