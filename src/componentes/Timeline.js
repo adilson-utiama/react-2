@@ -8,6 +8,7 @@ export default class Timeline extends Component {
     constructor(props){
         super(props);
         this.state = {fotos:[]};
+        //this.state = { likers : this.props.foto.likers, comentarios : this.props.foto.comentarios };
         this.login = this.props.login
     }
 
@@ -42,6 +43,31 @@ export default class Timeline extends Component {
         Pubsub.subscribe('timeline', (topico, fotos) => {
             console.log(fotos);
             this.setState({fotos : fotos});
+        });
+
+        Pubsub.subscribe('atualiza-liker', (topico, infoLiker) => {
+            const fotoAchada = this.state.fotos.find(foto => foto.id === infoLiker.fotoId);
+            fotoAchada.likeada = !fotoAchada.likeada;
+            const possivelLiker = fotoAchada.likers.find(liker => liker.login === infoLiker.liker.login);
+            if(possivelLiker === undefined){
+                fotoAchada.likers.push(infoLiker.liker);
+            }else{
+                const novosLikers = fotoAchada.likers.filter(liker => liker.login !== infoLiker.liker.login);
+                fotoAchada.likers = novosLikers;
+                this.setState({ likers : novosLikers });
+            }
+            this.setState({ fotos : this.state.fotos });
+           
+            
+            
+        });
+
+        Pubsub.subscribe('novos-comentarios', (topico, infoComentario) => {
+            console.log(infoComentario);
+            const fotoAchada = this.state.fotos.find(foto => foto.id === infoComentario.fotoId);
+            fotoAchada.comentarios.push(infoComentario.novoComentario);
+            this.setState({ fotos : this.state.fotos });
+            
         });
     }
 
