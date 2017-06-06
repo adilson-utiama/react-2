@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import Pubsub from 'pubsub-js';
 
 class FotoAtualizacoes extends Component {
 
     like(event){
         event.preventDefault();
         this.props.like(this.props.foto.id);
-       
+
     }
 
 
     comenta(event){
         event.preventDefault();
         this.props.comenta(this.props.foto.id, this.comentario.value);
-        
+
     }
 
     render(){
@@ -27,7 +26,7 @@ class FotoAtualizacoes extends Component {
                 <input type="submit" value="Comentar!" className="fotoAtualizacoes-form-submit"/>
               </form>
 
-            </section>            
+            </section>
         );
     }
 }
@@ -64,7 +63,7 @@ class FotoInfo extends Component {
                   })
                 }
               </ul>
-            </div>            
+            </div>
         );
     }
 }
@@ -78,11 +77,11 @@ class FotoHeader extends Component {
                 <figcaption className="foto-usuario">
                   <Link to={`/timeline/${this.props.foto.loginUsuario}`}>
                     {this.props.foto.loginUsuario}
-                  </Link>  
+                  </Link>
                 </figcaption>
               </figure>
               <time className="foto-data">{this.props.foto.horario}</time>
-            </header>            
+            </header>
         );
     }
 }
@@ -95,7 +94,7 @@ export default class FotoItem extends Component {
             <img alt="foto" className="foto-src" src={this.props.foto.urlFoto}/>
             <FotoInfo foto={this.props.foto}/>
             <FotoAtualizacoes {...this.props}/>
-          </div>            
+          </div>
         );
     }
 }
