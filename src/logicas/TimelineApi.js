@@ -1,22 +1,20 @@
 import Pubsub from 'pubsub-js';
 
-export default class LogicaTimeline {
+export default class TimelineApi {
 
     constructor(fotos){
       this.fotos = fotos;
     }
 
-    lista(urlPerfil){
+    static lista(urlPerfil,store){
       fetch(urlPerfil)
-      .then(response => response.json())
-      .then(fotos => {
-          this.fotos = fotos;
-          Pubsub.publish('timeline', this.fotos);
-
+        .then(response => response.json())
+        .then(fotos => {
+            store.dispatch({ type : 'LISTAGEM', fotos : fotos});
       });
     }
 
-    comenta(fotoId,textoComentario){
+    static comenta(fotoId,textoComentario){
         const requestInfo = {
             method: 'POST',
             body: JSON.stringify({texto : textoComentario}),
@@ -39,7 +37,7 @@ export default class LogicaTimeline {
             });
     }
 
-    like(fotoId){
+    static like(fotoId){
         fetch(`http://localhost:8080/api/fotos/${fotoId}/like?X-AUTH-TOKEN=${localStorage.getItem('auth-token')}`,{ method: 'POST'})
              .then(response => {
                  if(response.ok){
