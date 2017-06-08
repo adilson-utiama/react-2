@@ -13,7 +13,7 @@ export default class Header extends Component {
             })
     }
 
-    
+
 
     render(){
         return (
@@ -31,21 +31,21 @@ export default class Header extends Component {
 
                 <nav>
                     <ul className="header-nav">
-                    <li className="header-nav-item">
-                        <a href="#">
-                        ♡
-                        {/*                 ♥ */}
-                        {/* Quem deu like nas minhas fotos */}
-                        </a>
-                    </li>
-                    <li >
-                        <Link to={"/logout"}>
-                        Logout
-                        </Link>
-                    </li>
+                        <li className="header-nav-item">
+                            <a href="#">
+                            ♡
+                            {/*                 ♥ */}
+                            {/* Quem deu like nas minhas fotos */}
+                            </a>
+                        </li>
+                        <li>
+                            <Link to={"/logout"}>
+                                Logout
+                            </Link>
+                        </li>
                     </ul>
                 </nav>
-            </header> 
+            </header>
         );
     }
 }
