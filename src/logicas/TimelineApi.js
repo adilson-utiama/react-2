@@ -1,17 +1,13 @@
-//import Pubsub from 'pubsub-js';
+import { listagem, comentario, like } from '../actions/actionCreator';
 
 export default class TimelineApi {
-
-    // constructor(fotos){
-    //   this.fotos = fotos;
-    // }
 
     static lista(urlPerfil){
         return dispatch => {
             fetch(urlPerfil)
               .then(response => response.json())
               .then(fotos => {
-                  dispatch({ type : 'LISTAGEM', fotos : fotos});
+                  dispatch(listagem(fotos));
                   return fotos;
             });
         }
@@ -35,7 +31,7 @@ export default class TimelineApi {
                     }
                 })
                 .then(novoComentario => {
-                    dispatch({ type : 'COMENTARIO', fotoId : fotoId, novoComentario : novoComentario });
+                    dispatch(comentario(fotoId, novoComentario));
                     return novoComentario;
                 });
         }
@@ -52,20 +48,11 @@ export default class TimelineApi {
                    }
                })
                .then(liker => {
-                   dispatch({ type : 'LIKE', fotoId : fotoId, liker : liker });
+                   dispatch(like(fotoId, liker));
                    return liker;
                });
        }
     }
-
-    // subscribe(callback){
-    //     Pubsub.subscribe('timeline', (topico, fotos) => {
-    //         callback(fotos);
-    //
-    //     });
-    //
-    // }
-
 
 
 }
